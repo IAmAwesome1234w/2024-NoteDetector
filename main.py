@@ -15,9 +15,9 @@ from absl import logging
 logging.set_verbosity(logging.ERROR)
 
 train_data = object_detector.DataLoader.from_pascal_voc(
+    'train', #name of file of source images
     'train',
-    'train',
-    ['note', 'robot']
+    ['note', 'robot'] #ListMap of labels
 )
 
 val_data = object_detector.DataLoader.from_pascal_voc(
@@ -31,13 +31,13 @@ test_data = object_detector.DataLoader.from_pascal_voc(
     'test',
     ['note', 'robot']
 )
-
+#i believe google coral only works with lite0 due to TPU
 spec = model_spec.get('efficientdet_lite0')
-
+#change epoch and batch_size depending on dataset size and training time
 model = object_detector.create(train_data, model_spec=spec, batch_size=32, train_whole_model=True, epochs=10, validation_data=val_data)
 
 model.evaluate(test_data)
 
-model.export(export_dir='.', tflite_filename='notedetector.tflite')
+model.export(export_dir='.', tflite_filename='notedetector.tflite') #can change file name
 
 model.evaluate_tflite('notedetector.tflite', test_data)
