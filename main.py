@@ -34,7 +34,7 @@ test_data = object_detector.DataLoader.from_pascal_voc(
 #i believe google coral only works with lite0 due to TPU
 spec = model_spec.get('efficientdet_lite0')
 #change epoch and batch_size depending on dataset size and training time
-model = object_detector.create(train_data, model_spec=spec, batch_size=32, train_whole_model=True, epochs=10, validation_data=val_data)
+model = object_detector.create(train_data, model_spec=spec, batch_size=32, train_whole_model=True, epochs=20, validation_data=val_data)
 
 model.evaluate(test_data)
 
