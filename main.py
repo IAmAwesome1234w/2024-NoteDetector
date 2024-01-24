@@ -36,8 +36,6 @@ spec = model_spec.get('efficientdet_lite0')
 #change epoch and batch_size depending on dataset size and training time
 model = object_detector.create(train_data, model_spec=spec, batch_size=32, train_whole_model=True, epochs=20, validation_data=val_data)
 
-model.evaluate(test_data)
-
 model.export(export_dir='.', tflite_filename='notedetector.tflite') #can change file name
 
 model.evaluate_tflite('notedetector.tflite', test_data)
