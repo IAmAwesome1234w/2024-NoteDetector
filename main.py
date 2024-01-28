@@ -4,7 +4,6 @@ import os
 from tflite_model_maker.config import ExportFormat, QuantizationConfig
 from tflite_model_maker import model_spec
 from tflite_model_maker import object_detector
-from google.colab import files
 
 from tflite_support import metadata
 
@@ -40,7 +39,5 @@ model = object_detector.create(train_data, model_spec=spec, batch_size=32, train
 model.evaluate(test_data)
 
 model.export(export_dir='.', tflite_filename='notedetector.tflite') #can change file name
-
-files.download('notedetector.tflite')
 
 model.evaluate_tflite('notedetector.tflite', test_data)
