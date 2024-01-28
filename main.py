@@ -4,6 +4,7 @@ import os
 from tflite_model_maker.config import ExportFormat, QuantizationConfig
 from tflite_model_maker import model_spec
 from tflite_model_maker import object_detector
+from google.colab import files
 
 from tflite_support import metadata
 
@@ -36,6 +37,10 @@ spec = model_spec.get('efficientdet_lite0')
 #change epoch and batch_size depending on dataset size and training time
 model = object_detector.create(train_data, model_spec=spec, batch_size=32, train_whole_model=True, epochs=20, validation_data=val_data)
 
+model.evaluate(test_data)
+
 model.export(export_dir='.', tflite_filename='notedetector.tflite') #can change file name
+
+files.download('notedetector.tflite')
 
 model.evaluate_tflite('notedetector.tflite', test_data)
