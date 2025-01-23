@@ -17,19 +17,19 @@ logging.set_verbosity(logging.ERROR)
 train_data = object_detector.DataLoader.from_pascal_voc(
     'train', #name of file of source images
     'train',
-    ['note', 'robot'] #ListMap of labels
+    ['algae', 'coral'] #ListMap of labels
 )
 
 val_data = object_detector.DataLoader.from_pascal_voc(
     'valid',
     'valid',
-    ['note', 'robot']
+    ['algae', 'coral']
 )
 
 test_data = object_detector.DataLoader.from_pascal_voc(
     'test',
     'test',
-    ['note', 'robot']
+    ['algae', 'coral']
 )
 #i believe google coral only works with lite0 due to TPU
 spec = model_spec.get('efficientdet_lite0')
@@ -38,6 +38,6 @@ model = object_detector.create(train_data, model_spec=spec, batch_size=32, train
 
 model.evaluate(test_data)
 
-model.export(export_dir='.', tflite_filename='notedetector.tflite') #can change file name
+model.export(export_dir='.', tflite_filename='coral&algaeDetector.tflite') #can change file name
 
-model.evaluate_tflite('notedetector.tflite', test_data)
+model.evaluate_tflite('coral&algaeDetector.tflite', test_data)
